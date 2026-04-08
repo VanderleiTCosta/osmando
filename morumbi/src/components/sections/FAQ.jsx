@@ -9,11 +9,11 @@ import {
 
 const FAQS = [
   {
-    q: 'Como pode ser feito o desentupimento sem quebrar equipamentos?',
+    q: 'Como pode ser feito o desentupimento em sua casa sem estragar ou quebrar seus equipamentos?',
     a: 'Utilizamos técnicas e equipamentos de ponta especializados que permitem desentupir sem risco de danificar o encanamento ou equipamento. Nossos profissionais são treinados para avaliar cada situação e aplicar a solução mais adequada, preservando toda a estrutura.',
   },
   {
-    q: 'Vocês precisam quebrar pisos ou paredes?',
+    q: 'Vocês vão precisar quebrar pisos ou paredes?',
     a: 'Na maioria dos casos, NÃO. Utilizamos métodos modernos como hidrojateamento e vídeo inspeção que permitem resolver o problema sem quebra-quebra. Só em casos extremos e com sua aprovação prévia é que seria necessário.',
   },
   {
@@ -21,16 +21,16 @@ const FAQS = [
     a: 'Não. Nossos equipamentos são projetados especificamente para desentupimento e são operados por profissionais experientes que sabem exatamente como utilizá-los sem causar danos às tubulações.',
   },
   {
-    q: 'Quanto tempo demora o desentupimento?',
+    q: 'Quanto tempo vai demorar o desentupimento?',
     a: 'O tempo varia de acordo com a complexidade do problema. Entupimentos simples geralmente são resolvidos em 30 minutos a 1 hora. Casos mais complexos podem levar algumas horas. Sempre informamos a previsão antes de iniciar.',
   },
   {
-    q: 'Existe garantia após a execução do serviço?',
-    a: 'Sim! Todos os nossos serviços possuem garantia. Caso o problema retorne dentro do período de garantia, voltamos sem custo adicional para resolver definitivamente.',
+    q: 'Como a nossa empresa desentope uma rede de esgoto?',
+    a: 'Utilizamos equipamentos especializados como máquinas de hidrojateamento de alta pressão, sondas elétricas rotativas e sistemas de vídeo inspeção para diagnosticar e resolver o problema com precisão, sem necessidade de quebrar estruturas.',
   },
   {
-    q: 'Qual o preço do desentupimento?',
-    a: 'O preço varia conforme o tipo e complexidade do entupimento. Oferecemos visita gratuita para avaliação e orçamento sem compromisso. Aceitamos Pix, cartões, boleto e parcelamento.',
+    q: 'Existe garantia ao consumidor após a execução do serviço?',
+    a: 'Sim! Todos os nossos serviços possuem garantia. Caso o problema retorne dentro do período de garantia, voltamos sem custo adicional para resolver definitivamente.',
   },
 ];
 

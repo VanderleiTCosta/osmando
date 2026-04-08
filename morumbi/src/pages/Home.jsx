@@ -12,6 +12,7 @@ import Testimonials from '../components/sections/Testimonials';
 import FAQ from '../components/sections/FAQ';
 import ServiceAreas from '../components/sections/ServiceAreas';
 import PaymentCTA from '../components/sections/PaymentCTA';
+import Partners from '../components/sections/Partners';
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         <Hero />
         <Stats />
         <About />
+        <Partners />
         <Services />
         <Differentials />
         <HowItWorks />

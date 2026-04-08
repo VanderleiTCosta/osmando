@@ -2,16 +2,11 @@ import React from "react";
 import { Phone, MapPin, Clock } from "lucide-react";
 
 const SERVICE_AREAS = [
-  "Morumbi",
-  "Butantã",
-  "Pinheiros",
-  "Vila Mariana",
-  "Moema",
-  "Santo Amaro",
-  "Alphaville",
-  "Osasco",
-  "Barueri",
-  "Itapevi",
+  "Centro",
+  "Zona Oeste",
+  "Zona Sul",
+  "Zona Norte",
+  "Zona Leste",
 ];
 
 const SERVICES = [
@@ -71,7 +66,7 @@ export default function Footer() {
               {SERVICE_AREAS.map((a) => (
                 <li key={a}>
                   <span className="text-sm text-muted-foreground">
-                    Desentupidora em {a}
+                    Desentupidora {a}
                   </span>
                 </li>
               ))}

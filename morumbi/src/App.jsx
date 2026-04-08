@@ -11,6 +11,14 @@ const AreaPage = lazy(() => import('./pages/AreaPage'));
 const PageNotFound = lazy(() => import('./lib/PageNotFound'));
 const UserNotRegisteredError = lazy(() => import('@/components/UserNotRegisteredError'));
 
+// Importando as novas páginas de serviços otimizadas
+const ServiceDesentupimentoPage = lazy(() => import('./pages/services/ServiceDesentupimentoPage'));
+const ServiceHidrojateamentoPage = lazy(() => import('./pages/services/ServiceHidrojateamentoPage'));
+const ServiceLimpaFossaPage = lazy(() => import('./pages/services/ServiceLimpaFossaPage'));
+const ServiceVideoInspecaoPage = lazy(() => import('./pages/services/ServiceVideoInspecaoPage'));
+const ServiceCacaVazamentoPage = lazy(() => import('./pages/services/ServiceCacaVazamentoPage'));
+const ServiceHidraulicaPage = lazy(() => import('./pages/services/ServiceHidraulicaPage'));
+
 // Componente de Loading com React.memo para estabilidade de renderização
 const LoadingFallback = React.memo(() => (
   <div className="fixed inset-0 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm z-50">
@@ -48,6 +56,15 @@ const AuthenticatedApp = React.memo(() => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/desentupidora-em-:slug" element={<AreaPage />} />
+        
+        {/* Rotas exatas para as páginas de Serviços SEO */}
+        <Route path="/servicos/desentupimento" element={<ServiceDesentupimentoPage />} />
+        <Route path="/servicos/hidrojateamento" element={<ServiceHidrojateamentoPage />} />
+        <Route path="/servicos/limpeza-de-fossa" element={<ServiceLimpaFossaPage />} />
+        <Route path="/servicos/video-inspecao" element={<ServiceVideoInspecaoPage />} />
+        <Route path="/servicos/caca-vazamento" element={<ServiceCacaVazamentoPage />} />
+        <Route path="/servicos/servicos-hidraulicos" element={<ServiceHidraulicaPage />} />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>
@@ -62,8 +79,7 @@ export default function App() {
         <Router>
           <AuthenticatedApp />
         </Router>
-        {/* Configuração global do Toaster otimizado */}
-        <Toaster position="top-right" richColors />
+        <Toaster />
       </QueryClientProvider>
     </AuthProvider>
   );
