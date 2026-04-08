@@ -1,60 +1,70 @@
-import { Toaster } from "@/components/ui/toaster"
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClientInstance } from '@/lib/query-client'
+import React, { Suspense, lazy } from 'react';
+import { Toaster } from "@/components/ui/sonner";
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClientInstance } from '@/lib/query-client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
-import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-import Home from './pages/Home';
-import AreaPage from './pages/AreaPage';
-// Add page imports here
 
-const AuthenticatedApp = () => {
+// Lazy loading das páginas para garantir Code Splitting e máxima performance (Core Web Vitals)
+const Home = lazy(() => import('./pages/Home'));
+const AreaPage = lazy(() => import('./pages/AreaPage'));
+const PageNotFound = lazy(() => import('./lib/PageNotFound'));
+const UserNotRegisteredError = lazy(() => import('@/components/UserNotRegisteredError'));
+
+// Componente de Loading com React.memo para estabilidade de renderização
+const LoadingFallback = React.memo(() => (
+  <div className="fixed inset-0 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm z-50">
+    <div 
+      className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"
+      role="status"
+      aria-label="A carregar aplicação"
+    />
+  </div>
+));
+LoadingFallback.displayName = 'LoadingFallback';
+
+const AuthenticatedApp = React.memo(() => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
 
-  // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
-      </div>
-    );
+    return <LoadingFallback />;
   }
 
-  // Handle authentication errors
   if (authError) {
     if (authError.type === 'user_not_registered') {
-      return <UserNotRegisteredError />;
+      return (
+        <Suspense fallback={<LoadingFallback />}>
+          <UserNotRegisteredError />
+        </Suspense>
+      );
     } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
       navigateToLogin();
       return null;
     }
   }
 
-  // Render the main app
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/desentupidora-em-:slug" element={<AreaPage />} />
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+    <Suspense fallback={<LoadingFallback />}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/desentupidora-em-:slug" element={<AreaPage />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </Suspense>
   );
-};
+});
+AuthenticatedApp.displayName = 'AuthenticatedApp';
 
-
-function App() {
-
+export default function App() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <AuthenticatedApp />
         </Router>
-        <Toaster />
+        {/* Configuração global do Toaster otimizado */}
+        <Toaster position="top-right" richColors />
       </QueryClientProvider>
     </AuthProvider>
-  )
+  );
 }
-
-export default App

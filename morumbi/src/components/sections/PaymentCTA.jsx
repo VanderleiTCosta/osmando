@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CreditCard, Banknote, QrCode } from 'lucide-react';
+import { ArrowRight, CreditCard, Banknote, QrCode, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const PAYMENTS = [
@@ -28,6 +28,7 @@ export default function PaymentCTA() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
             <a href="https://wa.me/5511940103334?text=Olá! Preciso de um orçamento urgente para desentupimento." target="_blank" rel="noopener noreferrer">
+              
               <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-base px-8 h-14">
                 Chamar no WhatsApp
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -35,6 +36,7 @@ export default function PaymentCTA() {
             </a>
             <a href="tel:08005919537">
               <Button size="lg" variant="outline" className="border-border text-foreground font-semibold text-base px-8 h-14 hover:bg-secondary">
+                <Phone className="w-5 h-5 mr-2 text-accent" />
                 Ligar Grátis — 0800 591 9537
               </Button>
             </a>

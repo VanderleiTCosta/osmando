@@ -1,14 +1,26 @@
-import React from 'react';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import React from "react";
+import { Phone, MapPin, Clock } from "lucide-react";
 
 const SERVICE_AREAS = [
-  'Morumbi', 'Butantã', 'Pinheiros', 'Vila Mariana', 'Moema',
-  'Santo Amaro', 'Alphaville', 'Osasco', 'Barueri', 'Itapevi',
+  "Morumbi",
+  "Butantã",
+  "Pinheiros",
+  "Vila Mariana",
+  "Moema",
+  "Santo Amaro",
+  "Alphaville",
+  "Osasco",
+  "Barueri",
+  "Itapevi",
 ];
 
 const SERVICES = [
-  'Desentupimento', 'Hidrojateamento', 'Limpa Fossa',
-  'Caça Vazamento', 'Vídeo Inspeção', 'Serviços Hidráulicos',
+  "Desentupimento",
+  "Hidrojateamento",
+  "Limpa Fossa",
+  "Caça Vazamento",
+  "Vídeo Inspeção",
+  "Serviços Hidráulicos",
 ];
 
 export default function Footer() {
@@ -19,22 +31,26 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold text-sm">GP</span>
-              </div>
-              <div>
-                <p className="font-display font-bold text-sm text-foreground">Grupo Protec</p>
-                <p className="text-[10px] text-muted-foreground tracking-wider uppercase">Desentupidora 24h</p>
-              </div>
+              <a href="#inicio" className="flex items-center gap-2">
+                <img
+                  src="/image/logo-protec.png"
+                  alt="Logo"
+                  className="w-36 h-auto"
+                />
+              </a>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Há mais de 15 anos oferecendo serviços de desentupimento com qualidade, tecnologia e atendimento 24 horas em São Paulo e região metropolitana.
+              Há mais de 15 anos oferecendo serviços de desentupimento com
+              qualidade, tecnologia e atendimento 24 horas em São Paulo e região
+              metropolitana.
             </p>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="font-display font-bold text-sm text-foreground mb-4 uppercase tracking-wider">Serviços</h3>
+            <h3 className="font-display font-bold text-sm text-foreground mb-4 uppercase tracking-wider">
+              Serviços
+            </h3>
             <ul className="space-y-2">
               {SERVICES.map((s) => (
                 <li key={s}>
@@ -48,11 +64,15 @@ export default function Footer() {
 
           {/* Areas */}
           <div>
-            <h3 className="font-display font-bold text-sm text-foreground mb-4 uppercase tracking-wider">Regiões</h3>
+            <h3 className="font-display font-bold text-sm text-foreground mb-4 uppercase tracking-wider">
+              Regiões
+            </h3>
             <ul className="space-y-2">
               {SERVICE_AREAS.map((a) => (
                 <li key={a}>
-                  <span className="text-sm text-muted-foreground">Desentupidora em {a}</span>
+                  <span className="text-sm text-muted-foreground">
+                    Desentupidora em {a}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -60,7 +80,9 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-display font-bold text-sm text-foreground mb-4 uppercase tracking-wider">Contato</h3>
+            <h3 className="font-display font-bold text-sm text-foreground mb-4 uppercase tracking-wider">
+              Contato
+            </h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4 text-accent shrink-0" />
@@ -86,7 +108,10 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} Grupo Protec Desentupidora. Todos os direitos reservados.</p>
+            <p>
+              © {new Date().getFullYear()} Grupo Protec Desentupidora. Todos os
+              direitos reservados.
+            </p>
             <p>Desentupidora 24h em São Paulo | CNPJ: 00.000.000/0001-00</p>
           </div>
         </div>
