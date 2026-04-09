@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, ShieldCheck, Droplets } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Phone, ArrowRight, MapPin, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavbarServices from "../../components/layout/NavbarServices";
 import Footer from "../../components/layout/Footer";
@@ -84,7 +84,7 @@ const ServiceLimpaFossaPage = () => {
             loading="eager"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/70" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -95,10 +95,13 @@ const ServiceLimpaFossaPage = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 backdrop-blur-sm">
-                <span className="text-xs font-bold text-accent tracking-wider uppercase">
-                  Certificação Ambiental e Laudo
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
                 </span>
+                <span className="text-xs font-bold text-accent tracking-wider uppercase">Certificação Ambiental e Laudo</span>
               </div>
+
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight tracking-tight mb-6">
                 Limpa Fossa no{" "}
                 <span className="text-accent">Morumbi e Grande SP</span>
@@ -115,14 +118,28 @@ const ServiceLimpaFossaPage = () => {
                 >
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl transition-all"
+                    className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl hover:scale-105 transition-all"
                   >
                     Solicitar Caminhão Auto Vácuo
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </a>
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-accent py-8 border-y border-accent/20 shadow-inner">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-accent-foreground">Fossa entupida ou transbordando?</h2>
+            <p className="text-accent-foreground/80 font-medium mt-1">Atendimento de urgência 24 horas.</p>
+          </div>
+          <a href="tel:08005919537" className="flex items-center gap-3 bg-white text-accent px-8 py-4 rounded-xl font-black text-2xl shadow-lg hover:scale-105 transition-transform">
+            <Phone className="w-8 h-8 fill-current" />
+            0800 591 9537
+          </a>
         </div>
       </section>
 
@@ -132,7 +149,8 @@ const ServiceLimpaFossaPage = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="prose prose-lg dark:prose-invert max-w-none"
+            transition={{ duration: 0.6 }}
+            className="prose prose-lg dark:prose-invert prose-headings:font-display prose-headings:font-bold prose-a:text-accent max-w-none"
           >
             <h2 className="text-3xl lg:text-4xl text-foreground mb-6">
               Esgotamento Seguro e{" "}
@@ -171,24 +189,37 @@ const ServiceLimpaFossaPage = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="lg:sticky lg:top-32"
           >
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
+              <img 
+                src="/image/hero.png" 
+                alt="Caminhão limpa-fossa da Protec" 
+                className="w-full h-80 object-cover" 
+                loading="lazy" 
+              />
               <div className="p-8">
                 <h3 className="font-display font-bold text-2xl text-foreground mb-4">
                   Serviço com Certificação
                 </h3>
-                <div className="space-y-4 mt-6">
+                <div className="space-y-4">
                   <div className="flex items-center gap-4 text-muted-foreground">
-                    <Droplets className="w-5 h-5 text-accent" />
+                    <Truck className="w-5 h-5 text-accent" />
                     <p className="text-sm font-medium">
-                      Sucção de alta potência.
+                      Camiões de auto vácuo de alta capacidade.
                     </p>
                   </div>
                   <div className="flex items-center gap-4 text-muted-foreground">
                     <ShieldCheck className="w-5 h-5 text-accent" />
                     <p className="text-sm font-medium">
                       Destinação aprovada pelos órgãos ambientais.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4 text-muted-foreground">
+                    <MapPin className="w-5 h-5 text-accent" />
+                    <p className="text-sm font-medium">
+                      Atendimento em toda Grande São Paulo.
                     </p>
                   </div>
                 </div>
@@ -205,6 +236,36 @@ const ServiceLimpaFossaPage = () => {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-secondary/30 border-t border-border">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-foreground">
+              Perguntas Frequentes sobre <br className="hidden md:block"/> 
+              <span className="text-accent">Limpa Fossa</span>
+            </h2>
+          </div>
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <h3 className="text-lg font-bold text-foreground mb-3 flex items-start gap-3">
+                  <span className="text-accent mt-1">Q.</span> {faq.question}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed pl-7">
+                  {faq.answer}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
       <Footer />

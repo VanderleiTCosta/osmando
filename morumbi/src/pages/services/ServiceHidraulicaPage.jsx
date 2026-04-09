@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Wrench, Droplets } from 'lucide-react';
+import { CheckCircle2, Wrench, Droplets, Phone, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Footer from '../../components/layout/Footer';
 import NavbarServices from '../../components/layout/NavbarServices';
@@ -58,12 +58,20 @@ const ServiceHidraulicaPage = () => {
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src="/image/hero.png" alt="Encanador realizando reparos hidráulicos" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/70" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 backdrop-blur-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                </span>
+                <span className="text-xs font-bold text-accent tracking-wider uppercase">Encanadores Certificados - Atendimento 24h</span>
+              </div>
+
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight tracking-tight mb-6">
                 Encanador e Serviços Hidráulicos no <span className="text-accent">Morumbi</span>
               </h1>
@@ -72,7 +80,10 @@ const ServiceHidraulicaPage = () => {
               </h2>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl transition-all">Solicitar Encanador</Button>
+                  <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl hover:scale-105 transition-all">
+                    Solicitar Encanador
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
                 </a>
               </div>
             </motion.div>
@@ -80,11 +91,26 @@ const ServiceHidraulicaPage = () => {
         </div>
       </section>
 
+      <section className="bg-accent py-8 border-y border-accent/20 shadow-inner">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-accent-foreground">Cano estourado ou torneira a pingar?</h2>
+            <p className="text-accent-foreground/80 font-medium mt-1">Resolvemos hoje mesmo o seu problema.</p>
+          </div>
+          <a href="tel:08005919537" className="flex items-center gap-3 bg-white text-accent px-8 py-4 rounded-xl font-black text-2xl shadow-lg hover:scale-105 transition-transform">
+            <Phone className="w-8 h-8 fill-current" />
+            0800 591 9537
+          </a>
+        </div>
+      </section>
+
       <section className="py-20 lg:py-32 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-start">
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="prose prose-lg dark:prose-invert max-w-none">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="prose prose-lg dark:prose-invert prose-headings:font-display prose-headings:font-bold prose-a:text-accent max-w-none">
             <h2 className="text-3xl lg:text-4xl text-foreground mb-6">Manutenção <strong className="text-accent">Hidráulica</strong> Especializada</h2>
             <p className="text-muted-foreground">Evite amadorismos que resultam em vazamentos graves no futuro. Os nossos encanadores são capacitados para resolver desde um simples registo a pingar até à substituição completa de prumadas e redes de esgoto e água no <strong>Morumbi e Grande São Paulo</strong>.</p>
+            <h3 className="text-2xl text-foreground mt-8 mb-4">Profissionais Certificados</h3>
+            <p className="text-muted-foreground">Todos os nossos encanadores possuem <strong>certificação e experiência comprovada</strong>, garantindo um serviço de qualidade com materiais de primeira linha e acabamento impecável.</p>
             <ul className="mt-8 space-y-4 not-prose">
               {benefits.map((benefit, idx) => (
                 <li key={idx} className="flex items-start gap-3 text-muted-foreground font-medium">
@@ -95,22 +121,34 @@ const ServiceHidraulicaPage = () => {
             </ul>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:sticky lg:top-32">
-            <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card p-8">
-              <h3 className="font-display font-bold text-2xl text-foreground mb-4">Reparos Rápidos e Limpos</h3>
-              <div className="space-y-4 mt-6">
-                <div className="flex items-center gap-4 text-muted-foreground">
-                  <Wrench className="w-5 h-5 text-accent" />
-                  <p className="text-sm font-medium">Ferramentas adequadas para não danificar metais.</p>
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:sticky lg:top-32">
+            <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
+              <img 
+                src="/image/hero.png" 
+                alt="Encanador realizando reparo hidráulico" 
+                className="w-full h-80 object-cover" 
+                loading="lazy" 
+              />
+              <div className="p-8">
+                <h3 className="font-display font-bold text-2xl text-foreground mb-4">Reparos Rápidos e Limpos</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 text-muted-foreground">
+                    <Wrench className="w-5 h-5 text-accent" />
+                    <p className="text-sm font-medium">Ferramentas adequadas para não danificar metais.</p>
+                  </div>
+                  <div className="flex items-center gap-4 text-muted-foreground">
+                    <Droplets className="w-5 h-5 text-accent" />
+                    <p className="text-sm font-medium">Soluções definitivas para gotejamentos.</p>
+                  </div>
+                  <div className="flex items-center gap-4 text-muted-foreground">
+                    <ShieldCheck className="w-5 h-5 text-accent" />
+                    <p className="text-sm font-medium">Garantia de 1 ano no serviço realizado.</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-4 text-muted-foreground">
-                  <Droplets className="w-5 h-5 text-accent" />
-                  <p className="text-sm font-medium">Soluções definitivas para gotejamentos.</p>
-                </div>
+                <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer" className="block mt-8">
+                  <Button className="w-full h-12 text-base font-bold bg-green-500 hover:bg-green-600 text-white">Chamar Equipe Técnica</Button>
+                </a>
               </div>
-              <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer" className="block mt-8">
-                <Button className="w-full h-12 text-base font-bold bg-green-500 hover:bg-green-600 text-white">Chamar Equipe Técnica</Button>
-              </a>
             </div>
           </motion.div>
         </div>

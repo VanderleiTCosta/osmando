@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Crosshair, TrendingDown } from 'lucide-react';
+import { CheckCircle2, Phone, ArrowRight, MapPin, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import NavbarServices from '../../components/layout/NavbarServices';
 import Footer from '../../components/layout/Footer';
@@ -69,12 +69,20 @@ const ServiceCacaVazamentoPage = () => {
             loading="eager" 
             fetchPriority="high" 
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/70" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 backdrop-blur-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                </span>
+                <span className="text-xs font-bold text-accent tracking-wider uppercase">Tecnologia Geofone - Sem Quebra-Quebra</span>
+              </div>
+
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight tracking-tight mb-6">
                 Caça Vazamento de Água no <span className="text-accent">Morumbi e SP</span>
               </h1>
@@ -83,8 +91,9 @@ const ServiceCacaVazamentoPage = () => {
               </h2>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl transition-all">
+                  <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl hover:scale-105 transition-all">
                     Solicitar Caça Vazamento
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </a>
               </div>
@@ -93,11 +102,26 @@ const ServiceCacaVazamentoPage = () => {
         </div>
       </section>
 
+      <section className="bg-accent py-8 border-y border-accent/20 shadow-inner">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-accent-foreground">Conta de água alta sem explicação?</h2>
+            <p className="text-accent-foreground/80 font-medium mt-1">Detectamos o vazamento oculto em minutos.</p>
+          </div>
+          <a href="tel:08005919537" className="flex items-center gap-3 bg-white text-accent px-8 py-4 rounded-xl font-black text-2xl shadow-lg hover:scale-105 transition-transform">
+            <Phone className="w-8 h-8 fill-current" />
+            0800 591 9537
+          </a>
+        </div>
+      </section>
+
       <section className="py-20 lg:py-32 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-start">
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="prose prose-lg dark:prose-invert max-w-none">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="prose prose-lg dark:prose-invert prose-headings:font-display prose-headings:font-bold prose-a:text-accent max-w-none">
             <h2 className="text-3xl lg:text-4xl text-foreground mb-6">Pare de pagar por <strong className="text-accent">vazamentos ocultos</strong></h2>
             <p className="text-muted-foreground">Vazamentos de água não visíveis (infiltrações em lajes, paredes ou debaixo do solo) são os principais causadores de faturas exorbitantes. O nosso serviço de <strong>Caça Vazamento no Morumbi e Grande São Paulo</strong> poupa-lhe o transtorno do "quebra-quebra" tradicional.</p>
+            <h3 className="text-2xl text-foreground mt-8 mb-4">Tecnologia de Ponta</h3>
+            <p className="text-muted-foreground">Utilizamos o <strong>Geofone Eletrónico</strong>, um equipamento de ultrassom que capta a vibração exata da água escapando do cano, apontando o ponto da rutura com precisão cirúrgica.</p>
             <ul className="mt-8 space-y-4 not-prose">
               {benefits.map((benefit, idx) => (
                 <li key={idx} className="flex items-start gap-3 text-muted-foreground font-medium">
@@ -108,30 +132,37 @@ const ServiceCacaVazamentoPage = () => {
             </ul>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:sticky lg:top-32">
-            <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card p-8">
-              <h3 className="font-display font-bold text-2xl text-foreground mb-4">Deteção Precisa e Reparo</h3>
-              <div className="space-y-4 mt-6">
-                <div className="flex items-center gap-4 text-muted-foreground">
-                  <Crosshair className="w-5 h-5 text-accent" />
-                  <p className="text-sm font-medium">Localização em ponto exato por ultrassom.</p>
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:sticky lg:top-32">
+            <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
+              <img 
+                src="/image/hero.png" 
+                alt="Técnico com Geofone para detecção de vazamentos" 
+                className="w-full h-80 object-cover" 
+                loading="lazy" 
+              />
+              <div className="p-8">
+                <h3 className="font-display font-bold text-2xl text-foreground mb-4">Deteção Precisa e Reparo</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 text-muted-foreground">
+                    <MapPin className="w-5 h-5 text-accent" />
+                    <p className="text-sm font-medium">Localização em ponto exato por ultrassom.</p>
+                  </div>
+                  <div className="flex items-center gap-4 text-muted-foreground">
+                    <Wrench className="w-5 h-5 text-accent" />
+                    <p className="text-sm font-medium">Laudo para redução da conta de água (SABESP).</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-4 text-muted-foreground">
-                  <TrendingDown className="w-5 h-5 text-accent" />
-                  <p className="text-sm font-medium">Laudo para redução da conta de água (SABESP).</p>
-                </div>
+                <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer" className="block mt-8">
+                  <Button className="w-full h-12 text-base font-bold bg-green-500 hover:bg-green-600 text-white">
+                    Chamar Técnico com Geofone
+                  </Button>
+                </a>
               </div>
-              <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer" className="block mt-8">
-                <Button className="w-full h-12 text-base font-bold bg-green-500 hover:bg-green-600 text-white">
-                  Chamar Técnico com Geofone
-                </Button>
-              </a>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* SECÇÃO FAQ ADICIONADA (Resolve o erro do eslint "faqs unused") */}
       <section className="py-20 bg-secondary/30 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -163,7 +194,6 @@ const ServiceCacaVazamentoPage = () => {
         </div>
       </section>
       <Footer/>
-
     </main>
   );
 };
