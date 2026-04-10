@@ -1,4 +1,4 @@
-import React, { memo, useMemo, lazy, Suspense } from 'react';
+import React, { memo, useMemo, lazy, Suspense, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Phone, ArrowRight, MapPin, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,19 @@ import ServiceAreasModal from '../../components/sections/ServiceAreasModal';
 const ServiceAreasList = lazy(() => import('../../components/sections/ServiceAreasList'));
 
 const ServiceCacaVazamentoPage = () => {
+  useEffect(() => {
+    document.title = "Caça Vazamento no Morumbi e SP | Protec";
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Deteção de vazamentos de água com Geofone. Reduza a sua conta de água sem quebrar pisos ou paredes no Morumbi e região.");
+    } else {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = "description";
+      metaDescription.content = "Deteção de vazamentos de água com Geofone. Reduza a sua conta de água sem quebrar pisos ou paredes no Morumbi e região.";
+      document.head.appendChild(metaDescription);
+    }
+  }, []);
+
   const benefits = useMemo(() => [
     'Deteção eletrónica exata com Geofone de última geração',
     'Localização de vazamentos de água sem necessidade de quebrar paredes',

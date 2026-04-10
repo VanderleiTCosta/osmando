@@ -1,14 +1,27 @@
-import React, { memo, useMemo, lazy, Suspense } from 'react';
+import React, { memo, useMemo, lazy, Suspense, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Wrench, Droplets, Phone, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Footer from '../../components/layout/Footer';
 import NavbarServices from '../../components/layout/NavbarServices';
+import ServiceAreasModal from '../../components/sections/ServiceAreasModal';
 
-// Code Splitting: Carregamento sob demanda
 const ServiceAreasList = lazy(() => import('../../components/sections/ServiceAreasList'));
 
 const ServiceHidraulicaPage = () => {
+  useEffect(() => {
+    document.title = "Encanador e Serviços Hidráulicos no Morumbi | Protec";
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Instalação e manutenção hidráulica completa. Reparos e substituições de tubulações, torneiras e registos com encanadores certificados.");
+    } else {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = "description";
+      metaDescription.content = "Instalação e manutenção hidráulica completa. Reparos e substituições de tubulações, torneiras e registos com encanadores certificados.";
+      document.head.appendChild(metaDescription);
+    }
+  }, []);
+
   const benefits = useMemo(() => [
     'Instalação e reparo completo de tubulações de água fria e quente',
     'Conserto de vazamentos em torneiras, registos e chuveiros',
@@ -81,6 +94,7 @@ const ServiceHidraulicaPage = () => {
               <h2 className="text-xl sm:text-2xl text-muted-foreground font-medium mb-8 leading-relaxed">
                 Reparos, instalações e manutenção de rede hidráulica com garantia de quem entende do assunto.
               </h2>
+              
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl hover:scale-105 transition-all">
@@ -88,6 +102,8 @@ const ServiceHidraulicaPage = () => {
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </a>
+                
+                <ServiceAreasModal serviceName="Encanador" baseSlug="/encanador-em" />
               </div>
             </motion.div>
           </div>
@@ -126,27 +142,13 @@ const ServiceHidraulicaPage = () => {
 
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:sticky lg:top-32">
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
-              <img 
-                src="/image/hero.png" 
-                alt="Encanador realizando reparo hidráulico" 
-                className="w-full h-80 object-cover" 
-                loading="lazy" 
-              />
+              <img src="/image/hero.png" alt="Encanador realizando reparo hidráulico" className="w-full h-80 object-cover" loading="lazy" />
               <div className="p-8">
                 <h3 className="font-display font-bold text-2xl text-foreground mb-4">Reparos Rápidos e Limpos</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <Wrench className="w-5 h-5 text-accent" />
-                    <p className="text-sm font-medium">Ferramentas adequadas para não danificar metais.</p>
-                  </div>
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <Droplets className="w-5 h-5 text-accent" />
-                    <p className="text-sm font-medium">Soluções definitivas para gotejamentos.</p>
-                  </div>
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <ShieldCheck className="w-5 h-5 text-accent" />
-                    <p className="text-sm font-medium">Garantia de 1 ano no serviço realizado.</p>
-                  </div>
+                  <div className="flex items-center gap-4 text-muted-foreground"><Wrench className="w-5 h-5 text-accent" /><p className="text-sm font-medium">Ferramentas adequadas para não danificar metais.</p></div>
+                  <div className="flex items-center gap-4 text-muted-foreground"><Droplets className="w-5 h-5 text-accent" /><p className="text-sm font-medium">Soluções definitivas para gotejamentos.</p></div>
+                  <div className="flex items-center gap-4 text-muted-foreground"><ShieldCheck className="w-5 h-5 text-accent" /><p className="text-sm font-medium">Garantia de 1 ano no serviço realizado.</p></div>
                 </div>
                 <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer" className="block mt-8">
                   <Button className="w-full h-12 text-base font-bold bg-green-500 hover:bg-green-600 text-white">Chamar Equipe Técnica</Button>
@@ -157,19 +159,13 @@ const ServiceHidraulicaPage = () => {
         </div>
       </section>
 
-      {/* Componente de Áreas de Atendimento com Lazy Loading */}
       <Suspense fallback={<div className="py-16 flex justify-center text-muted-foreground">A carregar áreas de atendimento...</div>}>
-        <ServiceAreasList 
-          serviceName="Encanador" 
-          baseSlug="/encanador-em" 
-        />
+        <ServiceAreasList serviceName="Encanador" baseSlug="/encanador-em" />
       </Suspense>
 
       <section className="py-20 bg-secondary/30 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-foreground">Dúvidas Frequentes: <span className="text-accent">Hidráulica</span></h2>
-          </div>
+          <div className="text-center mb-12"><h2 className="font-display font-extrabold text-3xl md:text-4xl text-foreground">Dúvidas Frequentes: <span className="text-accent">Hidráulica</span></h2></div>
           <div className="space-y-6">
             {faqs.map((faq, index) => (
               <motion.div key={index} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">

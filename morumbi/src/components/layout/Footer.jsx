@@ -1,5 +1,6 @@
 import React from "react";
 import { Phone, MapPin, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const SERVICE_AREAS = [
   "Centro",
@@ -9,13 +10,14 @@ const SERVICE_AREAS = [
   "Zona Leste",
 ];
 
+// Array de serviços atualizado com os caminhos corretos (rotas)
 const SERVICES = [
-  "Desentupimento",
-  "Hidrojateamento",
-  "Limpa Fossa",
-  "Caça Vazamento",
-  "Vídeo Inspeção",
-  "Serviços Hidráulicos",
+  { name: "Desentupimento", path: "/servicos/desentupimento" },
+  { name: "Hidrojateamento", path: "/servicos/hidrojateamento" },
+  { name: "Limpa Fossa", path: "/servicos/limpeza-de-fossa" },
+  { name: "Caça Vazamento", path: "/servicos/caca-vazamento" },
+  { name: "Vídeo Inspeção", path: "/servicos/video-inspecao" },
+  { name: "Serviços Hidráulicos", path: "/servicos/servicos-hidraulicos" },
 ];
 
 export default function Footer() {
@@ -26,13 +28,14 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <a href="#inicio" className="flex items-center gap-2">
+              {/* Substituído <a> por <Link> para garantir o retorno à Home a partir de qualquer página */}
+              <Link to="/" className="flex items-center gap-2">
                 <img
                   src="/image/logo-protec.png"
                   alt="Logo"
                   className="w-36 h-auto"
                 />
-              </a>
+              </Link>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Há mais de 15 anos oferecendo serviços de desentupimento com
@@ -48,10 +51,14 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               {SERVICES.map((s) => (
-                <li key={s}>
-                  <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                    {s}
-                  </span>
+                <li key={s.name}>
+                  {/* Componente <Link> permite navegação instantânea para a rota do serviço */}
+                  <Link 
+                    to={s.path}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    {s.name}
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,4 +1,4 @@
-import React, { memo, useMemo, lazy, Suspense } from 'react';
+import React, { memo, useMemo, lazy, Suspense, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Wrench, ShieldCheck, Phone, ArrowRight, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,20 @@ import ServiceAreasModal from '../../components/sections/ServiceAreasModal';
 const ServiceAreasList = lazy(() => import('../../components/sections/ServiceAreasList'));
 
 const ServiceDesentupimentoPage = () => {
+  // Correção de SEO: Garante o Title e Description corretos ao voltar da página do Bairro
+  useEffect(() => {
+    document.title = "Desentupidora Profissional no Morumbi | Protec";
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Desentupimento rápido e sem quebra-quebra no Morumbi e SP. Pias, ralos e esgotos.");
+    } else {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = "description";
+      metaDescription.content = "Desentupimento rápido e sem quebra-quebra no Morumbi e SP. Pias, ralos e esgotos.";
+      document.head.appendChild(metaDescription);
+    }
+  }, []);
+
   const benefits = useMemo(() => [
     'Desentupimento de pias, ralos, vasos sanitários e tanques',
     'Utilização de máquinas rotativas (K-50/K-500) sem quebrar o piso',

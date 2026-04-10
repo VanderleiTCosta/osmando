@@ -7,7 +7,7 @@ const NavbarServices = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Otimização de performance: listener de scroll otimizado e limpo
+  // Otimização de performance: listener de scroll passivo para não bloquear a thread principal
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
@@ -30,122 +30,114 @@ const NavbarServices = () => {
       }`}
     >
       {/* Top bar de Alta Conversão (Gatilho de Urgência) */}
-      <div className="bg-accent text-accent-foreground text-xs font-medium py-1.5 text-center">
-        <span className="inline-flex items-center gap-2">
-          <span className="relative flex h-2 w-2" aria-hidden="true">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-600"></span>
-          </span>
-          Desentupidora 24h — Atendimento imediato em São Paulo e região
+      <div className="bg-accent text-accent-foreground text-xs md:text-sm font-bold py-2 text-center tracking-wide uppercase flex items-center justify-center gap-2 shadow-sm">
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
         </span>
+        Plantão 24 Horas - Equipes de Prontidão Imediata
       </div>
 
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 md:h-20">
           
-          {/* Logo e Botão Voltar (Desktop & Mobile) */}
-          <div className="flex items-center gap-4 md:gap-8">
+          {/* Lado Esquerdo: Botão Voltar + Logo */}
+          <div className="flex items-center gap-3 sm:gap-5">
             <Link 
               to="/" 
-              className="flex items-center gap-2 transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent rounded-md"
-              aria-label="Voltar para a página inicial"
+              className={`flex items-center gap-2 text-sm font-semibold transition-all duration-300 ${
+                scrolled ? 'text-foreground hover:text-accent' : 'text-foreground/80 hover:text-foreground'
+              }`}
+              title="Voltar à página inicial"
             >
-              <img 
-                src="/image/logo-protec.png" 
-                alt="Protec Desentupidora" 
-                width={144}
-                height={40}
-                className="w-32 md:w-36 h-auto object-contain"
-                decoding="async"
-              />
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                scrolled ? 'bg-secondary hover:bg-accent/10' : 'bg-background/50 hover:bg-background/80 backdrop-blur-sm'
+              }`}>
+                <ArrowLeft className="w-4 h-4" />
+              </div>
+              <span className="hidden sm:block">Voltar ao Início</span>
             </Link>
-
-            {/* Link Voltar SPA (Desktop) */}
-            <Link 
-              to="/" 
-              className="hidden lg:flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-accent transition-colors py-2 px-3 rounded-md hover:bg-secondary/80"
-            >
-              <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-              Voltar ao Início
+            
+            <div className={`w-px h-6 hidden sm:block ${scrolled ? 'bg-border' : 'bg-border/50'}`}></div>
+            
+            {/* Logo Protec simplificado */}
+            <Link to="/" className="flex items-center">
+              <img src="/image/logo-protec.png" alt="Protec Desentupidora" className="h-12 w-auto" />
             </Link>
           </div>
 
-          {/* CTAs de Conversão (Desktop) */}
-          <div className="flex items-center gap-3">
+          {/* Lado Direito: CTAs Principais (Desktop) */}
+          <div className="hidden md:flex items-center gap-5">
             <a 
               href="tel:08005919537" 
-              className="hidden sm:flex items-center gap-2 text-sm font-bold text-foreground hover:text-accent transition-colors px-3 py-2"
-              aria-label="Ligar grátis para 0800 591 9537"
+              className={`font-extrabold text-lg flex items-center gap-2 transition-colors ${
+                scrolled ? 'text-foreground hover:text-accent' : 'text-foreground/90 hover:text-foreground'
+              }`}
             >
-              <Phone className="w-4 h-4 text-accent" aria-hidden="true" />
+              <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                <Phone className="w-4 h-4 text-accent" />
+              </div>
               0800 591 9537
             </a>
             
-            <a 
-              href="https://wa.me/5511940103334?text=Olá! Estou a ver a página de serviços e preciso de um orçamento urgente." 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="Falar com a equipa técnica pelo WhatsApp"
-            >
-              <Button className="bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold text-sm px-4 h-10 md:h-11 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 hidden min-[400px]:flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 fill-current" aria-hidden="true">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                </svg>
-                WhatsApp
+            <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer">
+              <Button className="bg-green-500 hover:bg-green-600 text-white font-bold h-11 px-6 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5">
+                Chamar no WhatsApp
               </Button>
             </a>
-            
-            {/* Hambúrguer Mobile */}
-            <button
-              className="lg:hidden text-foreground p-2 rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-accent"
-              onClick={toggleMobileMenu}
-              aria-expanded={mobileOpen}
-              aria-label="Abrir menu de navegação"
+          </div>
+
+          {/* Lado Direito: Ações Rápidas (Mobile) */}
+          <div className="flex md:hidden items-center gap-3">
+            <a 
+              href="tel:08005919537" 
+              className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent animate-pulse"
+              aria-label="Ligar agora"
             >
-              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <Phone className="w-5 h-5 fill-current" />
+            </a>
+            
+            <button
+              onClick={toggleMobileMenu}
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+                scrolled ? 'bg-secondary text-foreground' : 'bg-background/50 text-foreground backdrop-blur-sm'
+              }`}
+              aria-label="Abrir opções de contacto"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
-      </nav>
+      </div>
 
-      {/* Menu Mobile Renderizado Condicionalmente */}
-      {mobileOpen && (
-        <div className="lg:hidden bg-background/98 backdrop-blur-xl border-t border-border shadow-2xl absolute w-full">
-          <div className="px-4 py-6 space-y-4">
-            
-            <Link
-              to="/"
-              onClick={toggleMobileMenu}
-              className="flex items-center gap-3 w-full text-left px-4 py-3 font-bold text-foreground hover:text-accent hover:bg-secondary/50 rounded-xl transition-colors border border-border/50"
-            >
-              <ArrowLeft className="w-5 h-5 text-accent" />
-              Voltar para a Página Inicial
-            </Link>
-
-            <div className="pt-4 border-t border-border space-y-3">
-              <a
-                href="tel:08005919537"
-                className="flex items-center justify-center gap-3 w-full bg-secondary hover:bg-secondary/80 text-foreground font-bold rounded-xl py-4 transition-colors border border-border"
-              >
-                <Phone className="w-5 h-5 text-accent" />
-                Ligar: 0800 591 9537
-              </a>
-              
-              <a
-                href="https://wa.me/5511940103334?text=Olá! Estou a ver a página de serviços e preciso de um orçamento urgente."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 w-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold rounded-xl py-4 transition-colors shadow-md"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 fill-current" aria-hidden="true">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                </svg>
-                Chamar no WhatsApp
-              </a>
-            </div>
-          </div>
+      {/* Menu Dropdown Mobile (Apenas CTAs focados) */}
+      <div 
+        className={`md:hidden absolute top-full left-0 w-full bg-background border-b border-border shadow-2xl transition-all duration-300 overflow-hidden ${
+          mobileOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="p-4 flex flex-col gap-3">
+          <a 
+            href="tel:08005919537" 
+            className="flex items-center justify-center gap-3 w-full bg-secondary hover:bg-secondary/80 text-foreground font-extrabold rounded-xl py-4 transition-colors"
+          >
+            <Phone className="w-5 h-5 text-accent" />
+            Ligar Grátis: 0800 591 9537
+          </a>
+          <a 
+            href="https://wa.me/5511940103334" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center justify-center gap-3 w-full bg-green-500 hover:bg-green-600 text-white font-extrabold rounded-xl py-4 transition-colors shadow-md"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-1.558.09c-.298.049-.768.124-1.066.818-.298.694-1.14 2.8-1.239 2.998-.099.198-.198.446-.496.595-.298.15-1.338.52-2.553-1.487-1.215-2.007-1.364-2.354-1.513-2.652-.149-.297-.015-.458.134-.606.149-.149.347-.347.496-.545.149-.198.198-.346.298-.594.099-.248.05-.446-.025-.595-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51z" />
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 1.84.498 3.565 1.374 5.05L2 22l5.12-1.336A9.954 9.954 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.25c-1.626 0-3.155-.417-4.464-1.15l-.32-.18-3.14.818.835-3.06-.198-.315A8.204 8.204 0 0 1 3.75 12c0-4.55 3.7-8.25 8.25-8.25 4.55 0 8.25 3.7 8.25 8.25 0 4.55-3.7 8.25-8.25 8.25z"/>
+            </svg>
+            WhatsApp (11) 94010-3334
+          </a>
         </div>
-      )}
+      </div>
     </header>
   );
 };

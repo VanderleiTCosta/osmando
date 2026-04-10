@@ -7,11 +7,11 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import WhatsAppFloat from '../components/layout/WhatsAppFloat';
 // Importação da nossa nova base de dados de SEO Local
 import { dynamicPagesData } from '../data/neighborhoodData';
+import NavbarServices from '../components/layout/NavbarServices';
 
 const SERVICES = [
   'Desentupimento de Esgoto',
@@ -100,7 +100,7 @@ export default function AreaPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+      <NavbarServices />
       
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
@@ -136,9 +136,9 @@ export default function AreaPage() {
                   <br />
                   <span className="text-3xl sm:text-4xl text-muted-foreground">24 Horas</span>
                 </h1>
-
+ 
                 <p className="mt-6 text-lg text-muted-foreground max-w-lg leading-relaxed">
-                  Serviço de <strong className="text-foreground">{pageData.serviceName.toLowerCase()}</strong> em <strong className="text-foreground">{pageData.neighborhood}</strong> com visita gratuita e chegada em até <strong className="text-foreground">30 minutos</strong>. Grupo Protec — mais de 15 anos de experiência.
+                  Serviço de <strong className="text-foreground">{pageData.serviceName.toLowerCase()} em </strong><strong className="text-foreground">{pageData.neighborhood}</strong> com visita gratuita e chegada em até <strong className="text-foreground">30 minutos</strong>. Grupo Protec — mais de 15 anos de experiência.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">

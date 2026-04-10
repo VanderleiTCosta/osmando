@@ -1,4 +1,4 @@
-import React, { memo, useMemo, lazy, Suspense } from 'react';
+import React, { memo, useMemo, lazy, Suspense, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, ArrowRight, CheckCircle2, ShieldCheck, MapPin, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,10 +6,22 @@ import Footer from '../../components/layout/Footer';
 import NavbarServices from '../../components/layout/NavbarServices';
 import ServiceAreasModal from '../../components/sections/ServiceAreasModal';
 
-// Code Splitting para a listagem estática do rodapé
 const ServiceAreasList = lazy(() => import('../../components/sections/ServiceAreasList'));
 
 const ServiceHidrojateamentoPage = () => {
+  useEffect(() => {
+    document.title = "Serviço de Hidrojateamento no Morumbi e SP | Protec";
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Limpeza profunda de tubulações com hidrojateamento de alta pressão. Remoção de incrustações em indústrias, comércios e condomínios.");
+    } else {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = "description";
+      metaDescription.content = "Limpeza profunda de tubulações com hidrojateamento de alta pressão. Remoção de incrustações em indústrias, comércios e condomínios.";
+      document.head.appendChild(metaDescription);
+    }
+  }, []);
+
   const benefits = useMemo(() => [
     'Tecnologia de alta pressão que não danifica a tubulação',
     'Ideal para limpeza de galerias, prumadas e redes industriais',
@@ -102,7 +114,6 @@ const ServiceHidrojateamentoPage = () => {
                 Limpeza extrema e desobstrução de tubulações com jatos de água em alta pressão. <strong className="text-foreground">Remoção de 100% das impurezas.</strong>
               </h2>
 
-              {/* Botoes de Ação - Integração do Modal de Bairros */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="https://wa.me/5511940103334?text=Olá! Preciso de orçamento para hidrojateamento." target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl hover:scale-105 transition-all">
@@ -111,11 +122,7 @@ const ServiceHidrojateamentoPage = () => {
                   </Button>
                 </a>
                 
-                {/* Modal Injetado Aqui */}
-                <ServiceAreasModal 
-                  serviceName="Hidrojateamento" 
-                  baseSlug="/hidrojateamento-em" 
-                />
+                <ServiceAreasModal serviceName="Hidrojateamento" baseSlug="/hidrojateamento-em" />
               </div>
             </motion.div>
           </div>
