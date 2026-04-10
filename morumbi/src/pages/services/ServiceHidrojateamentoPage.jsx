@@ -1,9 +1,13 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, ArrowRight, CheckCircle2, ShieldCheck, MapPin, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Footer from '../../components/layout/Footer';
 import NavbarServices from '../../components/layout/NavbarServices';
+import ServiceAreasModal from '../../components/sections/ServiceAreasModal';
+
+// Code Splitting para a listagem estática do rodapé
+const ServiceAreasList = lazy(() => import('../../components/sections/ServiceAreasList'));
 
 const ServiceHidrojateamentoPage = () => {
   const benefits = useMemo(() => [
@@ -66,6 +70,7 @@ const ServiceHidrojateamentoPage = () => {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <NavbarServices/>
+      
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -97,6 +102,7 @@ const ServiceHidrojateamentoPage = () => {
                 Limpeza extrema e desobstrução de tubulações com jatos de água em alta pressão. <strong className="text-foreground">Remoção de 100% das impurezas.</strong>
               </h2>
 
+              {/* Botoes de Ação - Integração do Modal de Bairros */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="https://wa.me/5511940103334?text=Olá! Preciso de orçamento para hidrojateamento." target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl hover:scale-105 transition-all">
@@ -104,6 +110,12 @@ const ServiceHidrojateamentoPage = () => {
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </a>
+                
+                {/* Modal Injetado Aqui */}
+                <ServiceAreasModal 
+                  serviceName="Hidrojateamento" 
+                  baseSlug="/hidrojateamento-em" 
+                />
               </div>
             </motion.div>
           </div>
@@ -142,7 +154,7 @@ const ServiceHidrojateamentoPage = () => {
 
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:sticky lg:top-32">
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
-              <img src="/assets/servicos/hidrojateamento-detalhe.webp" alt="Técnico com mangueira de hidrojateamento" className="w-full h-80 object-cover" loading="lazy" />
+              <img src="/image/hero.png" alt="Técnico com mangueira de hidrojateamento" className="w-full h-80 object-cover" loading="lazy" />
               <div className="p-8">
                 <h3 className="font-display font-bold text-2xl text-foreground mb-4">Serviço Técnico Especializado</h3>
                 <div className="space-y-4">
@@ -158,6 +170,13 @@ const ServiceHidrojateamentoPage = () => {
           </motion.div>
         </div>
       </section>
+
+      <Suspense fallback={<div className="py-16 flex justify-center text-muted-foreground">A carregar áreas de atendimento...</div>}>
+        <ServiceAreasList 
+          serviceName="Hidrojateamento" 
+          baseSlug="/hidrojateamento-em" 
+        />
+      </Suspense>
 
       <section className="py-20 bg-secondary/30 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

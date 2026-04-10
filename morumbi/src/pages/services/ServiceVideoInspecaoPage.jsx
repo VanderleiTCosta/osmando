@@ -1,9 +1,12 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, Video, FileCheck, Phone, ArrowRight, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Footer from "../../components/layout/Footer";
 import NavbarServices from "../../components/layout/NavbarServices";
+
+// Code Splitting: Carregamento sob demanda
+const ServiceAreasList = lazy(() => import('../../components/sections/ServiceAreasList'));
 
 const ServiceVideoInspecaoPage = () => {
   const benefits = useMemo(
@@ -239,6 +242,14 @@ const ServiceVideoInspecaoPage = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Componente de Áreas de Atendimento com Lazy Loading */}
+      <Suspense fallback={<div className="py-16 flex justify-center text-muted-foreground">A carregar áreas de atendimento...</div>}>
+        <ServiceAreasList 
+          serviceName="Vídeo Inspeção" 
+          baseSlug="/video-inspecao-em" 
+        />
+      </Suspense>
 
       <section className="py-20 bg-secondary/30 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

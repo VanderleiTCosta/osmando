@@ -1,9 +1,12 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Phone, ArrowRight, MapPin, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import NavbarServices from '../../components/layout/NavbarServices';
 import Footer from '../../components/layout/Footer';
+import ServiceAreasModal from '../../components/sections/ServiceAreasModal';
+
+const ServiceAreasList = lazy(() => import('../../components/sections/ServiceAreasList'));
 
 const ServiceCacaVazamentoPage = () => {
   const benefits = useMemo(() => [
@@ -36,11 +39,7 @@ const ServiceCacaVazamentoPage = () => {
       {
         "@type": "Service",
         "name": "Serviço de Caça Vazamento no Morumbi",
-        "provider": { 
-          "@type": "LocalBusiness", 
-          "name": "Protec Desentupidora", 
-          "telephone": "08005919537" 
-        },
+        "provider": { "@type": "LocalBusiness", "name": "Protec Desentupidora", "telephone": "08005919537" },
         "description": "Deteção de vazamentos de água ocultos com Geofone. Reduza a sua conta de água sem quebrar pisos ou paredes no Morumbi e SP."
       },
       {
@@ -62,13 +61,7 @@ const ServiceCacaVazamentoPage = () => {
 
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/image/hero.png" 
-            alt="Técnico utilizando Geofone para Caça Vazamento" 
-            className="w-full h-full object-cover" 
-            loading="eager" 
-            fetchPriority="high" 
-          />
+          <img src="/image/hero.png" alt="Técnico utilizando Geofone para Caça Vazamento" className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/70" aria-hidden="true" />
         </div>
 
@@ -89,6 +82,7 @@ const ServiceCacaVazamentoPage = () => {
               <h2 className="text-xl sm:text-2xl text-muted-foreground font-medium mb-8 leading-relaxed">
                 Conta de água alta? Detetamos vazamentos invisíveis com Geofone Eletrónico <strong className="text-foreground">sem quebrar a sua casa.</strong>
               </h2>
+              
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground shadow-xl hover:scale-105 transition-all">
@@ -96,6 +90,8 @@ const ServiceCacaVazamentoPage = () => {
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </a>
+                
+                <ServiceAreasModal serviceName="Caça Vazamento" baseSlug="/caca-vazamento-em" />
               </div>
             </motion.div>
           </div>
@@ -134,28 +130,15 @@ const ServiceCacaVazamentoPage = () => {
 
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:sticky lg:top-32">
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
-              <img 
-                src="/image/hero.png" 
-                alt="Técnico com Geofone para detecção de vazamentos" 
-                className="w-full h-80 object-cover" 
-                loading="lazy" 
-              />
+              <img src="/image/hero.png" alt="Técnico com Geofone para detecção de vazamentos" className="w-full h-80 object-cover" loading="lazy" />
               <div className="p-8">
                 <h3 className="font-display font-bold text-2xl text-foreground mb-4">Deteção Precisa e Reparo</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <MapPin className="w-5 h-5 text-accent" />
-                    <p className="text-sm font-medium">Localização em ponto exato por ultrassom.</p>
-                  </div>
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <Wrench className="w-5 h-5 text-accent" />
-                    <p className="text-sm font-medium">Laudo para redução da conta de água (SABESP).</p>
-                  </div>
+                  <div className="flex items-center gap-4 text-muted-foreground"><MapPin className="w-5 h-5 text-accent" /><p className="text-sm font-medium">Localização em ponto exato por ultrassom.</p></div>
+                  <div className="flex items-center gap-4 text-muted-foreground"><Wrench className="w-5 h-5 text-accent" /><p className="text-sm font-medium">Laudo para redução da conta de água (SABESP).</p></div>
                 </div>
                 <a href="https://wa.me/5511940103334" target="_blank" rel="noopener noreferrer" className="block mt-8">
-                  <Button className="w-full h-12 text-base font-bold bg-green-500 hover:bg-green-600 text-white">
-                    Chamar Técnico com Geofone
-                  </Button>
+                  <Button className="w-full h-12 text-base font-bold bg-green-500 hover:bg-green-600 text-white">Chamar Técnico com Geofone</Button>
                 </a>
               </div>
             </div>
@@ -163,31 +146,18 @@ const ServiceCacaVazamentoPage = () => {
         </div>
       </section>
 
+      <Suspense fallback={<div className="py-16 flex justify-center text-muted-foreground">A carregar áreas de atendimento...</div>}>
+        <ServiceAreasList serviceName="Caça Vazamento" baseSlug="/caca-vazamento-em" />
+      </Suspense>
+
       <section className="py-20 bg-secondary/30 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-foreground">
-              Perguntas Frequentes sobre <br className="hidden md:block"/> 
-              <span className="text-accent">Caça Vazamento</span>
-            </h2>
-          </div>
-
+          <div className="text-center mb-12"><h2 className="font-display font-extrabold text-3xl md:text-4xl text-foreground">Perguntas Frequentes sobre <br className="hidden md:block"/> <span className="text-accent">Caça Vazamento</span></h2></div>
           <div className="space-y-6">
             {faqs.map((faq, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <h3 className="text-lg font-bold text-foreground mb-3 flex items-start gap-3">
-                  <span className="text-accent mt-1">Q.</span> {faq.question}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed pl-7">
-                  {faq.answer}
-                </p>
+              <motion.div key={index} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: index * 0.1 }} className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                <h3 className="text-lg font-bold text-foreground mb-3 flex items-start gap-3"><span className="text-accent mt-1">Q.</span> {faq.question}</h3>
+                <p className="text-muted-foreground leading-relaxed pl-7">{faq.answer}</p>
               </motion.div>
             ))}
           </div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect, useMemo } from 'react';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Phone, ArrowRight, Shield, Clock, Wrench, CheckCircle,
@@ -10,7 +10,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import WhatsAppFloat from '../components/layout/WhatsAppFloat';
-import { findAreaBySlug, REGIONS, slugify } from '../lib/areas';
+// Importação da nossa nova base de dados de SEO Local
+import { dynamicPagesData } from '../data/neighborhoodData';
 
 const SERVICES = [
   'Desentupimento de Esgoto',
@@ -52,29 +53,56 @@ const FAQS = [
 
 export default function AreaPage() {
   const { slug } = useParams();
-  const result = findAreaBySlug(slug);
+  
+  // Busca a página exata gerada dinamicamente (ex: desentupidora-em-freguesia-do-o)
+  const pageData = useMemo(() => {
+    return dynamicPagesData.find(page => page.slug === slug);
+  }, [slug]);
 
-  if (!result) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-muted-foreground">Bairro não encontrado.</p>
-          <Link to="/" className="text-primary mt-4 inline-block">← Voltar ao início</Link>
-        </div>
-      </div>
-    );
+  // Aplicação do SEO no Head do documento e Scroll to Top
+  useEffect(() => {
+    if (pageData) {
+      document.title = pageData.pageTitle;
+      
+      let metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute("content", pageData.metaDescription);
+      } else {
+        metaDescription = document.createElement('meta');
+        metaDescription.name = "description";
+        metaDescription.content = pageData.metaDescription;
+        document.head.appendChild(metaDescription);
+      }
+      
+      window.scrollTo(0, 0);
+    }
+  }, [pageData]);
+
+  // Se a URL estiver errada ou bairro não existir, redireciona para a Home
+  if (!pageData) {
+    return <Navigate to="/" replace />;
   }
 
-  const { area, region } = result;
+  // Schema Markup para o Google
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `${pageData.serviceName} em ${pageData.neighborhood}`,
+    "provider": { "@type": "LocalBusiness", "name": "Protec Desentupidora", "telephone": "08005919537" },
+    "areaServed": { "@type": "Neighborhood", "name": pageData.neighborhood },
+    "description": pageData.metaDescription
+  };
 
-  // Nearby areas from same region (exclude current)
-  const nearbyAreas = REGIONS[region]
-    .filter((a) => a !== area)
+  // Bairros próximos da mesma região e do mesmo serviço
+  const nearbyAreas = dynamicPagesData
+    .filter(p => p.region === pageData.region && p.serviceName === pageData.serviceName && p.slug !== slug)
     .slice(0, 6);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
+      
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <main>
         {/* Hero */}
@@ -85,9 +113,9 @@ export default function AreaPage() {
             <nav className="flex items-center gap-1.5 text-xs text-muted-foreground mb-8" aria-label="Breadcrumb">
               <Link to="/" className="hover:text-foreground transition-colors">Início</Link>
               <ChevronRight className="w-3 h-3" />
-              <span>{region}</span>
+              <span>{pageData.region}</span>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-foreground">{area}</span>
+              <span className="text-foreground">{pageData.neighborhood}</span>
             </nav>
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -98,24 +126,24 @@ export default function AreaPage() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
-                  <span className="text-xs font-medium text-primary">Disponível agora em {area}</span>
+                  <span className="text-xs font-medium text-primary">Equipe em {pageData.neighborhood}</span>
                 </div>
 
                 <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight text-foreground">
-                  Desentupidora em
+                  {pageData.serviceName} em
                   <br />
-                  <span className="text-accent">{area}</span>
+                  <span className="text-accent">{pageData.neighborhood}</span>
                   <br />
                   <span className="text-3xl sm:text-4xl text-muted-foreground">24 Horas</span>
                 </h1>
 
                 <p className="mt-6 text-lg text-muted-foreground max-w-lg leading-relaxed">
-                  Desentupimento profissional em <strong className="text-foreground">{area}</strong> com visita gratuita e chegada em até <strong className="text-foreground">30 minutos</strong>. Grupo Protec — mais de 15 anos de experiência em São Paulo.
+                  Serviço de <strong className="text-foreground">{pageData.serviceName.toLowerCase()}</strong> em <strong className="text-foreground">{pageData.neighborhood}</strong> com visita gratuita e chegada em até <strong className="text-foreground">30 minutos</strong>. Grupo Protec — mais de 15 anos de experiência.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <a
-                    href={`https://wa.me/5511940103334?text=Olá! Preciso de desentupimento em ${area}. Podem me atender?`}
+                    href={`https://wa.me/5511940103334?text=Olá! Preciso de orçamento para ${pageData.serviceName} em ${pageData.neighborhood}.`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -157,7 +185,7 @@ export default function AreaPage() {
               >
                 <div className="bg-card border border-border rounded-2xl p-8 shadow-2xl">
                   <div className="text-center mb-6">
-                    <h2 className="font-display font-bold text-xl text-foreground">Orçamento em {area}</h2>
+                    <h2 className="font-display font-bold text-xl text-foreground">Orçamento em {pageData.neighborhood}</h2>
                     <p className="text-sm text-muted-foreground mt-1">Resposta em menos de 5 minutos</p>
                   </div>
                   <div className="space-y-4">
@@ -169,7 +197,7 @@ export default function AreaPage() {
                       Ligar Grátis — 0800 591 9537
                     </a>
                     <a
-                      href={`https://wa.me/5511940103334?text=Olá! Preciso de desentupimento em ${area}. Podem me atender?`}
+                      href={`https://wa.me/5511940103334?text=Olá! Preciso de orçamento para ${pageData.serviceName} em ${pageData.neighborhood}.`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-3 w-full bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl py-4 transition-colors"
@@ -214,14 +242,14 @@ export default function AreaPage() {
             >
               <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">O que fazemos</p>
               <h2 className="font-display font-extrabold text-3xl text-foreground">
-                Serviços disponíveis em <span className="text-accent">{area}</span>
+                Serviços disponíveis em <span className="text-accent">{pageData.neighborhood}</span>
               </h2>
             </motion.div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
               {SERVICES.map((service, i) => (
                 <motion.a
                   key={service}
-                  href={`https://wa.me/5511940103334?text=Olá! Preciso de ${service} em ${area}.`}
+                  href={`https://wa.me/5511940103334?text=Olá! Preciso de ${service} em ${pageData.neighborhood}.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 15 }}
@@ -238,7 +266,7 @@ export default function AreaPage() {
           </div>
         </section>
 
-        {/* About local */}
+        {/* About local - AGORA 100% DINÂMICO BASEADO NO SERVIÇO E BAIRRO */}
         <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -248,19 +276,15 @@ export default function AreaPage() {
             >
               <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">Atendimento local</p>
               <h2 className="font-display font-extrabold text-3xl text-foreground mb-6">
-                Desentupidora de confiança em <span className="text-accent">{area}</span>
+                {pageData.serviceName} de confiança em <span className="text-accent">{pageData.neighborhood}</span>
               </h2>
-              <div className="prose prose-invert max-w-none text-muted-foreground leading-relaxed space-y-4">
-                <p>
-                  O <strong className="text-foreground">Grupo Protec</strong> atende {area} com equipe especializada, equipamentos modernos e resposta imediata a emergências. Somos a desentupidora 24 horas de referência na região, com mais de 15 anos de experiência em São Paulo.
-                </p>
-                <p>
-                  Realizamos todos os tipos de serviço: desentupimento de pia, vaso sanitário, ralo, esgoto, hidrojateamento, limpa fossa, caça vazamento e muito mais. Trabalhamos com <strong className="text-foreground">visita gratuita</strong>, orçamento transparente e garantia nos serviços realizados em {area}.
-                </p>
-                <p>
-                  Atendemos residências, condomínios, comércios e indústrias em {area} e nas regiões próximas da {region}. Nossa equipe está pronta para atender seu chamado em qualquer horário, inclusive fins de semana e feriados.
-                </p>
-              </div>
+              
+              {/* HTML Dinâmico injetado diretamente da base de SEO */}
+              <div 
+                className="prose prose-invert max-w-none text-muted-foreground leading-relaxed space-y-4"
+                dangerouslySetInnerHTML={{ __html: pageData.content }}
+              />
+
             </motion.div>
           </div>
         </section>
@@ -317,7 +341,7 @@ export default function AreaPage() {
               className="text-center mb-12"
             >
               <h2 className="font-display font-extrabold text-3xl text-foreground">
-                Dúvidas frequentes — <span className="text-accent">{area}</span>
+                Dúvidas frequentes — <span className="text-accent">{pageData.neighborhood}</span>
               </h2>
             </motion.div>
             <Accordion type="single" collapsible className="space-y-3">
@@ -339,7 +363,7 @@ export default function AreaPage() {
           </div>
         </section>
 
-        {/* Nearby areas */}
+        {/* Nearby areas dinâmico baseado na mesma Região e Serviço */}
         {nearbyAreas.length > 0 && (
           <section className="py-20 bg-secondary/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -351,18 +375,18 @@ export default function AreaPage() {
               >
                 <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">Regiões próximas</p>
                 <h2 className="font-display font-extrabold text-2xl text-foreground">
-                  Também atendemos na {region}
+                  Também atendemos na {pageData.region}
                 </h2>
               </motion.div>
               <div className="flex flex-wrap justify-center gap-3">
                 {nearbyAreas.map((nearby) => (
                   <Link
-                    key={nearby}
-                    to={`/desentupidora-em-${slugify(nearby)}`}
+                    key={nearby.slug}
+                    to={`/${nearby.slug}`}
                     className="inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all"
                   >
                     <MapPin className="w-3.5 h-3.5 text-accent" />
-                    Desentupidora em {nearby}
+                    {nearby.serviceName} em {nearby.neighborhood}
                   </Link>
                 ))}
               </div>
@@ -380,14 +404,14 @@ export default function AreaPage() {
               className="bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20 rounded-3xl p-8 sm:p-12 text-center"
             >
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-foreground">
-                Desentupidora em <span className="text-accent">{area}</span> agora?
+                {pageData.serviceName} em <span className="text-accent">{pageData.neighborhood}</span> agora?
               </h2>
               <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
                 Não espere o problema piorar. Ligue ou chame no WhatsApp e receba atendimento imediato com visita gratuita.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
                 <a
-                  href={`https://wa.me/5511940103334?text=Olá! Preciso de desentupimento em ${area}. Podem me atender?`}
+                  href={`https://wa.me/5511940103334?text=Olá! Preciso de ${pageData.serviceName} em ${pageData.neighborhood}.`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

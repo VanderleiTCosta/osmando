@@ -1,9 +1,12 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, ShieldCheck, Phone, ArrowRight, MapPin, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavbarServices from "../../components/layout/NavbarServices";
 import Footer from "../../components/layout/Footer";
+
+// Code Splitting: Carregamento sob demanda
+const ServiceAreasList = lazy(() => import('../../components/sections/ServiceAreasList'));
 
 const ServiceLimpaFossaPage = () => {
   const benefits = useMemo(
@@ -238,6 +241,14 @@ const ServiceLimpaFossaPage = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Componente de Áreas de Atendimento com Lazy Loading */}
+      <Suspense fallback={<div className="py-16 flex justify-center text-muted-foreground">A carregar áreas de atendimento...</div>}>
+        <ServiceAreasList 
+          serviceName="Limpa Fossa" 
+          baseSlug="/limpa-fossa-em" 
+        />
+      </Suspense>
 
       <section className="py-20 bg-secondary/30 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

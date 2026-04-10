@@ -55,7 +55,6 @@ const AuthenticatedApp = React.memo(() => {
     <Suspense fallback={<LoadingFallback />}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/desentupidora-em-:slug" element={<AreaPage />} />
         
         {/* Rotas exatas para as páginas de Serviços SEO */}
         <Route path="/servicos/desentupimento" element={<ServiceDesentupimentoPage />} />
@@ -65,6 +64,12 @@ const AuthenticatedApp = React.memo(() => {
         <Route path="/servicos/caca-vazamento" element={<ServiceCacaVazamentoPage />} />
         <Route path="/servicos/servicos-hidraulicos" element={<ServiceHidraulicaPage />} />
 
+        {/* ROTA DINÂMICA DE SEO LOCAL (Gera as 400+ páginas de bairros e serviços).
+          Deve ficar obrigatoriamente AQUI, depois das rotas estáticas e antes do Not Found (*)
+        */}
+        <Route path="/:slug" element={<AreaPage />} />
+
+        {/* Fallback para páginas não encontradas */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>
