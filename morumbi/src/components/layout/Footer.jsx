@@ -53,7 +53,7 @@ export default function Footer() {
               {SERVICES.map((s) => (
                 <li key={s.name}>
                   {/* Componente <Link> permite navegação instantânea para a rota do serviço */}
-                  <Link 
+                  <Link
                     to={s.path}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                   >
@@ -90,7 +90,7 @@ export default function Footer() {
                 <Phone className="w-4 h-4 text-accent shrink-0" />
                 <div>
                   <p className="font-medium text-foreground">0800 591 9537</p>
-                  <p>(11) 94010-3334</p>
+                  <p>(11) 93772-4242</p>
                 </div>
               </li>
               <li className="flex items-center gap-3 text-sm text-muted-foreground">
