@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { Phone, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -12,21 +12,26 @@ const NAV_LINKS = [
   { label: "Regiões", href: "#regioes" },
 ];
 
-export default function Navbar() {
+const Navbar = memo(() => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
+    // Ativa o passive listener para otimização do Main Thread (Core Web Vitals)
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (href) => {
+  const scrollTo = useCallback((href) => {
     setMobileOpen(false);
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
+
+  const toggleMobileMenu = useCallback(() => {
+    setMobileOpen((prev) => !prev);
+  }, []);
 
   return (
     <header
@@ -47,14 +52,16 @@ export default function Navbar() {
         </span>
       </div>
 
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Menu de Navegação Principal" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-2">
+          <a href="#inicio" className="flex items-center gap-2" aria-label="Voltar para a página inicial">
             <img
               src="/image/logo-protec.png"
-              alt="Logo"
+              alt="Logotipo da Protec Desentupidora"
               className="w-36 h-auto"
+              width="144"
+              height="40"
             />
           </a>
 
@@ -64,7 +71,8 @@ export default function Navbar() {
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-secondary"
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                aria-label={`Rolar para a seção ${link.label}`}
               >
                 {link.label}
               </button>
@@ -75,21 +83,23 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="tel:08005919537"
-              className="hidden sm:flex items-center gap-2 text-sm font-medium text-foreground"
+              className="hidden sm:flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+              aria-label="Ligar para nossa central no número 0800 591 9537"
             >
-              <Phone className="w-4 h-4 text-accent" />
+              <Phone className="w-4 h-4 text-accent" aria-hidden="true" />
               0800 591 9537
             </a>
             <a
               href="https://wa.me/5511937724242?text=Olá! Preciso de um orçamento para desentupimento."
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Iniciar conversa no WhatsApp para orçamento de desentupimento"
             >
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm px-4 h-9">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  className="w-5 h-5"
+                  className="w-5 h-5 mr-2"
                   fill="currentColor"
                   aria-hidden="true"
                 >
@@ -99,13 +109,17 @@ export default function Navbar() {
               </Button>
             </a>
             <button
-              className="lg:hidden text-foreground p-2"
-              onClick={() => setMobileOpen(!mobileOpen)}
+              type="button"
+              className="lg:hidden text-foreground p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md"
+              onClick={toggleMobileMenu}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu-navigation"
+              aria-label={mobileOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
             >
               {mobileOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" aria-hidden="true" />
               ) : (
-                <Menu className="w-5 h-5" />
+                <Menu className="w-5 h-5" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -114,22 +128,27 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-background/98 backdrop-blur-md border-t border-border">
+        <div 
+          id="mobile-menu-navigation" 
+          className="lg:hidden bg-background/98 backdrop-blur-md border-t border-border"
+        >
           <div className="px-4 py-4 space-y-1">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className="block w-full text-left px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-md transition-colors"
+                className="block w-full text-left px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                aria-label={`Ir para a seção ${link.label}`}
               >
                 {link.label}
               </button>
             ))}
             <a
               href="tel:08005919537"
-              className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-accent"
+              className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-accent hover:bg-secondary rounded-md transition-colors"
+              aria-label="Ligar para a central de atendimento 0800 591 9537"
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-4 h-4" aria-hidden="true" />
               0800 591 9537
             </a>
           </div>
@@ -137,4 +156,8 @@ export default function Navbar() {
       )}
     </header>
   );
-}
+});
+
+Navbar.displayName = "Navbar";
+
+export default Navbar;

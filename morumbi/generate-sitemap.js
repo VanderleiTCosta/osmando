@@ -7,7 +7,7 @@ import { dynamicPagesData } from './src/data/neighborhoodData.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DOMAIN = 'https://www.protecdesentupidora.com.br'; // Substitua pelo domínio real
+const DOMAIN = 'https://www.desentupidoranomorumbi.com.br/'; // Substitua pelo domínio real
 
 function generateSitemap() {
   console.log('A gerar Sitemap para SEO Local...');
