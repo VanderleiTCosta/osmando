@@ -115,7 +115,7 @@ const ServiceHidrojateamentoPage = () => {
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/image/hero.png"
+            src="/image/hero.webp"
             alt="Camião de Hidrojateamento da Protec Desentupidora em operação"
             className="w-full h-full object-cover"
             loading="eager"
@@ -254,7 +254,7 @@ const ServiceHidrojateamentoPage = () => {
           >
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
               <img
-                src="/image/hero.png"
+                src="/image/hero.webp"
                 alt="Técnico com mangueira de hidrojateamento"
                 className="w-full h-80 object-cover"
                 loading="lazy"

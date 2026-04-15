@@ -101,7 +101,7 @@ const ServiceCacaVazamentoPage = () => {
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/image/hero.png"
+            src="/image/hero.webp"
             alt="Técnico utilizando Geofone para Caça Vazamento"
             className="w-full h-full object-cover"
             loading="eager"
@@ -237,7 +237,7 @@ const ServiceCacaVazamentoPage = () => {
           >
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
               <img
-                src="/image/hero.png"
+                src="/image/hero.webp"
                 alt="Técnico com Geofone para detecção de vazamentos"
                 className="w-full h-80 object-cover"
                 loading="lazy"

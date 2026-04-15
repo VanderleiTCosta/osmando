@@ -3,7 +3,8 @@ import { Phone, ArrowRight, Shield, Clock, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
-const HERO_IMG = "/image/hero.png";
+// Mantido o .png conforme a sua estrutura atual
+const HERO_IMG = "/image/hero.webp";
 
 const BADGES = [
   { icon: Clock, text: "Atendimento 24h" },
@@ -24,6 +25,9 @@ export default function Hero() {
           alt="Desentupidora profissional 24h em São Paulo - Grupo Protec"
           className="w-full h-full object-cover"
           loading="eager"
+          fetchPriority="high"
+          width="1920"
+          height="1080"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
       </div>

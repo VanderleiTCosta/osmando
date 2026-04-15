@@ -107,7 +107,7 @@ const ServiceLimpaFossaPage = () => {
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/image/hero.png"
+            src="/image/hero.webp"
             alt="Limpeza de Fossa Séptica em São Paulo"
             className="w-full h-full object-cover"
             loading="eager"
@@ -241,7 +241,7 @@ const ServiceLimpaFossaPage = () => {
           >
             <div className="rounded-3xl overflow-hidden shadow-2xl border border-border bg-card">
               <img
-                src="/image/hero.png"
+                src="/image/hero.webp"
                 alt="Caminhão limpa-fossa da Protec"
                 className="w-full h-80 object-cover"
                 loading="lazy"
