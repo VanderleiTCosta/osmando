@@ -4,41 +4,42 @@ import ServiceCard from './ServiceCard';
 
 export default function Services() {
   // Memoizando o array para evitar recriação a cada renderização da página
+  // Substituição total de links externos (base44) por assets locais em WebP
   const servicesList = useMemo(() => [
     {
       title: 'Desentupimento',
       description: 'Desentupimento profissional de pias, ralos, vasos sanitários e tubulações em geral. Atendimento 24h com equipamentos modernos e sem quebra-quebra.',
-      image: 'https://media.base44.com/images/public/69d3f828d4cb90b11cd23df0/16c0cd8ba_generated_6399d1ed.png',
+      image: '/image/desentupimento.webp',
       href: '/servicos/desentupimento'
     },
     {
       title: 'Hidrojateamento',
       description: 'Limpeza profunda de tubulações com água em alta pressão. Tecnologia avançada para desobstrução total e remoção de incrustações em qualquer encanamento.',
-      image: 'https://media.base44.com/images/public/69d3f828d4cb90b11cd23df0/c4ce57887_generated_86760e08.png',
+      image: '/image/hidrojateamento.webp',
       href: '/servicos/hidrojateamento'
     },
     {
       title: 'Limpa Fossa',
       description: 'Limpeza e manutenção de fossas sépticas com caminhão especializado. Remoção de resíduos e tratamento adequado seguindo normas ambientais.',
-      image: 'https://media.base44.com/images/public/69d3f828d4cb90b11cd23df0/bb7b2ec29_generated_3e3eff3b.png',
+      image: '/image/limpa-fossa.webp',
       href: '/servicos/limpeza-de-fossa'
     },
     {
       title: 'Vídeo Inspeção',
       description: 'Inspeção detalhada de tubulações com câmera especializada. Diagnóstico preciso sem necessidade de quebrar paredes ou pisos.',
-      image: 'https://media.base44.com/images/public/69d3f828d4cb90b11cd23df0/a7ccab128_generated_c57dcd62.png',
+      image: '/image/video-inspecao.webp',
       href: '/servicos/video-inspecao'
     },
     {
       title: 'Caça Vazamento',
       description: 'Detecção precisa de vazamentos ocultos com equipamentos eletrônicos de última geração. Localização exata sem quebrar pisos ou paredes.',
-      image: 'https://media.base44.com/images/public/69d3f828d4cb90b11cd23df0/14ba56328_generated_151169bb.png',
+      image: '/image/caca-vazamento.webp',
       href: '/servicos/caca-vazamento'
     },
     {
       title: 'Serviços Hidráulicos',
       description: 'Instalação e manutenção completa de sistemas hidráulicos. Reparos, substituições e instalações de tubulações, torneiras e registros.',
-      image: 'https://media.base44.com/images/public/69d3f828d4cb90b11cd23df0/248234b42_generated_b773e82b.png',
+      image: '/image/hidraulica.webp',
       href: '/servicos/servicos-hidraulicos'
     },
   ], []);

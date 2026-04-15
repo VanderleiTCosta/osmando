@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 
-const TEAM_IMG = 'https://media.base44.com/images/public/69d3f828d4cb90b11cd23df0/2025ba6a9_generated_de13cb37.png';
+const TEAM_IMG = '/image/team.webp';
 
 const POINTS = [
   'Mais de 15 anos de experiência em desentupimento em São Paulo',
