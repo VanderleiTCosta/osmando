@@ -31,7 +31,7 @@ export default function Footer() {
               {/* Substituído <a> por <Link> para garantir o retorno à Home a partir de qualquer página */}
               <Link to="/" className="flex items-center gap-2">
                 <img
-                  src="/image/logo-protec.png"
+                  src="/image/logo-protec.webp"
                   alt="Logo"
                   className="w-36 h-auto"
                 />

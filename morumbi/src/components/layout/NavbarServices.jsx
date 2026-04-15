@@ -38,7 +38,10 @@ const NavbarServices = () => {
         Plantão 24 Horas - Equipes de Prontidão Imediata
       </div>
 
-      <nav aria-label="Navegação de Serviços" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav
+        aria-label="Navegação de Serviços"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Lado Esquerdo: Botão Voltar + Logo */}
           <div className="flex items-center gap-3 sm:gap-5">
@@ -69,13 +72,13 @@ const NavbarServices = () => {
             ></div>
 
             {/* Logo Protec simplificado com proteção CLS */}
-            <Link 
-              to="/" 
-              className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md" 
+            <Link
+              to="/"
+              className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md"
               aria-label="Página Inicial Protec"
             >
               <img
-                src="/image/logo-protec.png"
+                src="/image/logo-protec.webp"
                 alt="Logotipo da Protec Desentupidora"
                 className="h-12 w-auto"
                 width="144"
@@ -134,7 +137,11 @@ const NavbarServices = () => {
               }`}
               aria-expanded={mobileOpen}
               aria-controls="mobile-services-menu"
-              aria-label={mobileOpen ? "Fechar opções de contacto" : "Abrir opções de contacto"}
+              aria-label={
+                mobileOpen
+                  ? "Fechar opções de contacto"
+                  : "Abrir opções de contacto"
+              }
             >
               {mobileOpen ? (
                 <X className="w-5 h-5" aria-hidden="true" />

@@ -52,12 +52,19 @@ const Navbar = memo(() => {
         </span>
       </div>
 
-      <nav aria-label="Menu de Navegação Principal" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav
+        aria-label="Menu de Navegação Principal"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-2" aria-label="Voltar para a página inicial">
+          <a
+            href="#inicio"
+            className="flex items-center gap-2"
+            aria-label="Voltar para a página inicial"
+          >
             <img
-              src="/image/logo-protec.png"
+              src="/image/logo-protec.webp"
               alt="Logotipo da Protec Desentupidora"
               className="w-36 h-auto"
               width="144"
@@ -114,7 +121,11 @@ const Navbar = memo(() => {
               onClick={toggleMobileMenu}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu-navigation"
-              aria-label={mobileOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
+              aria-label={
+                mobileOpen
+                  ? "Fechar menu de navegação"
+                  : "Abrir menu de navegação"
+              }
             >
               {mobileOpen ? (
                 <X className="w-5 h-5" aria-hidden="true" />
@@ -128,8 +139,8 @@ const Navbar = memo(() => {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div 
-          id="mobile-menu-navigation" 
+        <div
+          id="mobile-menu-navigation"
           className="lg:hidden bg-background/98 backdrop-blur-md border-t border-border"
         >
           <div className="px-4 py-4 space-y-1">
