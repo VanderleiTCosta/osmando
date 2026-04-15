@@ -64,7 +64,7 @@ const Navbar = memo(() => {
             aria-label="Voltar para a página inicial"
           >
             <img
-              src="/image/logo-protec.webp"
+              src="/image/logo-protec.png"
               alt="Logotipo da Protec Desentupidora"
               className="w-36 h-auto"
               width="144"

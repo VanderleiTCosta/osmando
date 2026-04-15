@@ -31,7 +31,7 @@ export default function Footer() {
               {/* Substituído <a> por <Link> para garantir o retorno à Home a partir de qualquer página */}
               <Link to="/" className="flex items-center gap-2">
                 <img
-                  src="/image/logo-protec.webp"
+                  src="/image/logo-protec.png"
                   alt="Logotipo da Protec Desentupidora"
                   className="w-36 h-auto"
                   width="144"

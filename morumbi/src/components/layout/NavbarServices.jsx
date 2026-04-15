@@ -78,7 +78,7 @@ const NavbarServices = () => {
               aria-label="Página Inicial Protec"
             >
               <img
-                src="/image/logo-protec.webp"
+                src="/image/logo-protec.png"
                 alt="Logotipo da Protec Desentupidora"
                 className="h-12 w-auto"
                 width="144"

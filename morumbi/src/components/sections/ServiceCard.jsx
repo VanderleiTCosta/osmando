@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { memo } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ServiceCard = memo(({ title, description, image, href, delay = 0 }) => {
   return (
@@ -18,15 +18,20 @@ const ServiceCard = memo(({ title, description, image, href, delay = 0 }) => {
           alt={`${title} - Serviço profissional de desentupimento em São Paulo`}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
+          decoding="async"
+          width="662"
+          height="483"
         />
       </div>
-      
+
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="font-display font-bold text-lg text-foreground">{title}</h3>
+        <h3 className="font-display font-bold text-lg text-foreground">
+          {title}
+        </h3>
         <p className="text-sm text-muted-foreground mt-2 leading-relaxed flex-grow">
           {description}
         </p>
-        
+
         {/* Usando Link do react-router para navegação ultra-rápida (SPA) */}
         <Link
           to={href}
@@ -41,6 +46,6 @@ const ServiceCard = memo(({ title, description, image, href, delay = 0 }) => {
   );
 });
 
-ServiceCard.displayName = 'ServiceCard';
+ServiceCard.displayName = "ServiceCard";
 
 export default ServiceCard;
