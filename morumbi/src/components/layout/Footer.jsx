@@ -32,8 +32,11 @@ export default function Footer() {
               <Link to="/" className="flex items-center gap-2">
                 <img
                   src="/image/logo-protec.webp"
-                  alt="Logo"
+                  alt="Logotipo da Protec Desentupidora"
                   className="w-36 h-auto"
+                  width="144"
+                  height="40"
+                  loading="lazy"
                 />
               </Link>
             </div>
