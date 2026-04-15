@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Accordion,
@@ -35,8 +35,31 @@ const FAQS = [
 ];
 
 export default function FAQ() {
+  const [isRendered, setIsRendered] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Otimização de Performance: Interseção Observer para evitar Forced Reflow na Main Thread
+  // O componente Accordion só será instanciado no DOM quando a secção FAQ entrar no ecrã.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsRendered(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' } // Inicia a renderização 200px antes de chegar à visão
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="faq" className="py-24 bg-secondary/30">
+    <section id="faq" className="py-24 bg-secondary/30" ref={sectionRef}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -50,28 +73,33 @@ export default function FAQ() {
           </h2>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <Accordion type="single" collapsible className="space-y-3">
-            {FAQS.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`faq-${i}`}
-                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/30"
-              >
-                <AccordionTrigger className="text-sm font-semibold text-foreground hover:no-underline text-left py-5">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-5">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+        {isRendered ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Accordion type="single" collapsible className="space-y-3">
+              {FAQS.map((faq, i) => (
+                <AccordionItem
+                  key={i}
+                  value={`faq-${i}`}
+                  className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/30 shadow-sm"
+                >
+                  <AccordionTrigger className="text-sm font-semibold text-foreground hover:no-underline text-left py-5">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-5">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
+        ) : (
+          /* Placeholder leve (Skeleton) para manter o CLS estável enquanto o Accordion não é renderizado */
+          <div className="space-y-3 opacity-0 h-96" aria-hidden="true"></div>
+        )}
       </div>
     </section>
   );

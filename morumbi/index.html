@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <link rel="manifest" href="/manifest.json" />
 
     <link rel="icon" type="image/png" href="/image/logo-protec.png" />
@@ -22,19 +22,32 @@
     <meta name="author" content="Grupo Protec Desentupidora" />
     <link rel="canonical" href="https://www.desentupidoranomorumbi.com.br/" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://media.base44.com" />
+
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      />
+    </noscript>
+
     <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Desentupidora no Morumbi 24h | Grupo Protec"
-    />
-    <meta
-      property="og:description"
-      content="Desentupidora 24 horas em São Paulo. Visita gratuita, orçamento sem compromisso. Atendimento imediato com equipamentos modernos."
-    />
-    <meta
-      property="og:url"
-      content="https://www.desentupidoranomorumbi.com.br/"
-    />
+    <meta property="og:title" content="Desentupidora no Morumbi 24h | Grupo Protec" />
+    <meta property="og:description" content="Desentupidora 24 horas em São Paulo. Visita gratuita, orçamento sem compromisso. Atendimento imediato com equipamentos modernos." />
+    <meta property="og:url" content="https://www.desentupidoranomorumbi.com.br/" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Grupo Protec Desentupidora" />
     <meta property="og:image" content="https://www.desentupidoranomorumbi.com.br/image/logo-protec.png" />
@@ -72,15 +85,7 @@
         },
         "openingHoursSpecification": {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
           "opens": "00:00",
           "closes": "23:59"
         },
@@ -115,36 +120,12 @@
           "@type": "OfferCatalog",
           "name": "Serviços de Desentupimento",
           "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Desentupimento de Esgoto"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": { "@type": "Service", "name": "Hidrojateamento" }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": { "@type": "Service", "name": "Limpa Fossa" }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": { "@type": "Service", "name": "Vídeo Inspeção" }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": { "@type": "Service", "name": "Caça Vazamento" }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Serviços Hidráulicos"
-              }
-            }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desentupimento de Esgoto" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hidrojateamento" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limpa Fossa" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Vídeo Inspeção" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Caça Vazamento" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Serviços Hidráulicos" } }
           ]
         }
       }
@@ -155,24 +136,9 @@
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "São Paulo",
-            "item": "https://www.desentupidoranomorumbi.com.br/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Zona Sul",
-            "item": "https://www.desentupidoranomorumbi.com.br/#regioes"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Morumbi",
-            "item": "https://www.desentupidoranomorumbi.com.br/#inicio"
-          }
+          { "@type": "ListItem", "position": 1, "name": "São Paulo", "item": "https://www.desentupidoranomorumbi.com.br/" },
+          { "@type": "ListItem", "position": 2, "name": "Zona Sul", "item": "https://www.desentupidoranomorumbi.com.br/#regioes" },
+          { "@type": "ListItem", "position": 3, "name": "Morumbi", "item": "https://www.desentupidoranomorumbi.com.br/#inicio" }
         ]
       }
     </script>

@@ -19,13 +19,13 @@ const ServiceVideoInspecaoPage = lazy(() => import('./pages/services/ServiceVide
 const ServiceCacaVazamentoPage = lazy(() => import('./pages/services/ServiceCacaVazamentoPage'));
 const ServiceHidraulicaPage = lazy(() => import('./pages/services/ServiceHidraulicaPage'));
 
-// Componente de Loading com React.memo para estabilidade de renderização
+// Componente de Loading com React.memo para estabilidade de renderização e sem CLS
 const LoadingFallback = React.memo(() => (
-  <div className="fixed inset-0 flex items-center justify-center bg-slate-50/80 backdrop-blur-sm z-50">
+  <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-50">
     <div 
-      className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"
+      className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin"
       role="status"
-      aria-label="A carregar aplicação"
+      aria-label="A carregar aplicação..."
     />
   </div>
 ));
@@ -84,7 +84,7 @@ export default function App() {
         <Router>
           <AuthenticatedApp />
         </Router>
-        <Toaster />
+        <Toaster position="top-right" />
       </QueryClientProvider>
     </AuthProvider>
   );
